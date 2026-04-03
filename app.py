@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, jsonify, session
+from flask import Flask,render_template, request, jsonify, session, redirect
 from tinydb import TinyDB, Query
 
 app = Flask(__name__)
@@ -22,7 +22,8 @@ def zapiski():
 def nekej():
     note = request.form[note]
     print(note)
-    users.update(["note" : note], User.username == session["user"])
+    users[session["user"]]["note"] = note
+    #users.update(["note" : note], User.username == session["user"])
 @app.route('/login', methods=["GET","POST"])
 def login():
     if request.method == 'POST':
