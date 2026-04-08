@@ -7,8 +7,18 @@
 
 <body>
     <h1>ZAPISKI</h1>
-    <textarea id="moji_zapiski"></textarea>
-    <button onclick="addNote()">DODAJ ZAPISKE</button>
+    <h2>Moji zapiski</h2>
+    <ul>
+        {% for ime, vsebina in notes.items() %}
+            <li>{{ vsebina }}</li>
+        {% else %}
+            <li>Ni zapiskov.</li>
+        {% endfor %}
+    </ul>
+    <form action="/dodajZapisek" method="post">
+        <textarea id="moji_zapiski" name="note"></textarea>
+        <button type="submit">DODAJ ZAPISKE</button>
+    </form>
 
 </body>
 <script>

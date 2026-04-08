@@ -6,23 +6,31 @@ app.config['SECRET_KEY'] = 'geslo123'
 
 db=TinyDB('db.json')
 notes_table=db.table('notes')
+users = db.table('users')
+User = Query()
 
 @app.route('/')
 def zapiski():
     if "user" not in session:
         #redirect("/index.html")
         return redirect("/login")
+        
     user = users.get(User.username == session["user"])
-    note=user.get('note'," ")
+    #note=user.get('note'," ")
+    notes = user.get("notes", {})
     #return render_templates("register.html")
-    return render_template('index.html',notes=notes, note=note, uporabnik=session["user"])
+    #return render_template('index.html',notes=notes, note=note, uporabnik=session["user"])
+    return render_template('index.html',notes=notes, uporabnik=session["user"])
 #return render_template('index.html',notes=notes)
 
-@app.route("/nekej",methods=["POST"])
+@app.route("/dodajZapisek",methods=["POST"])
 def nekej():
-    note = request.form[note]
-    print(note)
-    users[session["user"]]["note"] = note
+    note = request.form["note"]
+    user = users.get(User.username == session["user"])
+    notes = user.get("notes", {})
+    notes[f"note{len(notes) + 1}"] = note
+    users.update({"notes": notes}, User.username == session["user"])
+    return redirect('/')
     #users.update(["note" : note], User.username == session["user"])
 @app.route('/login', methods=["GET","POST"])
 def login():
@@ -31,13 +39,10 @@ def login():
         password = request.form['password']
 
         
-        user = users_table.get((User.username == username) & (User.password == password))
+        user = users.get((User.username == username) & (User.password == password))
         print(user)
-        if user and user["password"] == username:
+        if user and user["password"] == password:
             session["user"] = username
-
-        if user:
-            session['username'] = username
             return redirect('/')
         else:
             return "Napačno uporabniško ime ali geslo!"
@@ -45,6 +50,8 @@ def login():
     return render_template('login.html')
 
 @app.route('/register',methods=["GET","POST"])
+def register():
+    return render_template('register.html')
 
 @app.route('/logout')
 def logout():
