@@ -53,7 +53,23 @@ def login():
 
 @app.route('/register',methods=["GET","POST"])
 def register():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+        ze_obstaja = users.get(User.username == username)
+        if ze_obstaja:
+            return "Uporabnik že obstaja!"
+        users.insert({
+            "username": username,
+            "password": password,
+            "notes": {}
+        })
+
+        return redirect("/login")
+
     return render_template('register.html')
+    
+    #return render_template('register.html')
 
 @app.route('/logout',methods = ["POST"])
 def logout():
