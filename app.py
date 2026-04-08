@@ -2,6 +2,7 @@ from flask import Flask,render_template, request, jsonify, session, redirect
 from tinydb import TinyDB, Query
 
 app = Flask(__name__)
+template_folder="templates",
 app.config['SECRET_KEY'] = 'geslo123'
 
 db=TinyDB('db.json')
@@ -21,6 +22,7 @@ def zapiski():
     #return render_templates("register.html")
     #return render_template('index.html',notes=notes, note=note, uporabnik=session["user"])
     return render_template('index.html',notes=notes, uporabnik=session["user"])
+    #return redirect("/logout")
 #return render_template('index.html',notes=notes)
 
 @app.route("/dodajZapisek",methods=["POST"])
@@ -53,7 +55,7 @@ def login():
 def register():
     return render_template('register.html')
 
-@app.route('/logout')
+@app.route('/logout',methods = ["POST"])
 def logout():
     session.clear()
     return redirect("/login")
