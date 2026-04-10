@@ -1,9 +1,12 @@
 from flask import Flask,render_template, request, jsonify, session, redirect
 from tinydb import TinyDB, Query
 import os
-app = Flask(__name__)
-template_folder="templates2",
-static_folder="static",
+app = Flask(
+    __name__,
+    template_folder="templates2",
+    static_folder="static2"
+)
+
 app.config['SECRET_KEY'] = 'žabaracarak'
 
 db=TinyDB('db2.json')
@@ -14,12 +17,14 @@ User = Query()
 
 @app.route('/')
 def zapiski():
+    print("zapiski")
     if "user" not in session:
         #redirect("/index.html")
         return redirect("/login")
         
+    print(session)
     user = users.get(User.username == session["user"])
-    #note=user.get('note'," ")
+    note=user.get('note'," ")
     notes = user.get("notes", {})
     #return render_templates("register.html")
     #return render_template('index.html',notes=notes, note=note, uporabnik=session["user"])
