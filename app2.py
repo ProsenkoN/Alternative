@@ -70,7 +70,7 @@ def register():
             "username": username,
             "password": password,
             "notes": {},
-            "slike":slika
+            "slike":slike
         })
 
         return redirect("/login")

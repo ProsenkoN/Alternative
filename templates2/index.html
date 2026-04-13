@@ -9,29 +9,29 @@
     <h1>ZAPISKI</h1>
     <h2>Moji zapiski</h2>
     <ul>
-        <!--{% for ime, vsebina in notes.items() %}
+        {% for ime, vsebina in notes.items() %}
             <li>{{ vsebina }}</li>
         {% else %}
             <li>Ni zapiskov.</li>
-        {% endfor %} -->
+        {% endfor %} 
     </ul>
     <form action="/dodajZapisek" method="post">
         <textarea id="moji_zapiski" name="note"></textarea>
         <button type="submit">DODAJ ZAPISKE</button>
     </form>
-    <h2>moje slike</h2>
+    <!-- <h2>moje slike</h2> 
     <form>
         <button onClick="submit">DODAJ SLIKE</button>
-    </form>
+    </form> -->
     <h2>Prikaz slike:</h2>
     <form action="/dodajSLIKO" method="post">
         <label for="slika">Izberi sliko za nalaganje:</label>
         <input type="file" name="slika" id="slika" accept="image/*" required><br><br>
         <!--<textarea id="moje_slike" name="slike"></textarea> 
         <img src=""-->
-        <button type="submit">DODAJ SLIKE</button>
+        <button type="submit">UPLOAD SLIKO</button>
     </form>
-    
+    <br>
         {% if image_url %}
         
         <img src="{{ image_url }}" alt="Naložena slika" width="300">
@@ -42,7 +42,7 @@
     </form>
 
 </body>
-<!-- <script>
+<script>
     $.ajax({
         url: "/api/getWeather",
         data: {
@@ -52,6 +52,5 @@
            $("#weather-temp").html("<strong>" + result + "</strong> degrees");
        }
    });
-</script> -->
-
+</script> 
 </html>
