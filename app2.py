@@ -8,6 +8,8 @@ app = Flask(
 )
 
 app.config['SECRET_KEY'] = 'žabaracarak'
+UPLOAD_FOLDER = 'static2/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db=TinyDB('db2.json')
 notes_table=db.table('notes')
@@ -70,7 +72,7 @@ def register():
             "username": username,
             "password": password,
             "notes": {},
-            "slike":slike
+            "slike":{}
         })
 
         return redirect("/login")

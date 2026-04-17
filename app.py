@@ -10,6 +10,7 @@ notes_table=db.table('notes')
 users = db.table('users')
 User = Query()
 
+
 @app.route('/')
 def zapiski():
     if "user" not in session:
