@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ugani številko</title>
+</head>
+<body>
+
+<h1>Ugani številko (1–100)</h1>
+
+<form method="post" action="/guess">
+    <input type="number" name="guess" required>
+    <button>Ugani</button>
+</form>
+
+<br>
+
+<a href="/reset">
+    <button>Nova igra</button>
+</a>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+</body>
+</html>

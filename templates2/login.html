@@ -2,16 +2,18 @@
 <html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <title>ZAPISKI</title>
+    <title>Prijava</title>
 </head>
 
 <body>
     <h1>PRIJAVI SE</h1>
+
     <form action="/login" method="post">
-        <input action="text" name="username">
-        <input action="text" name="password">
+        <input type="text" name="username" placeholder="Uporabniško ime">
+        <input type="password" name="password" placeholder="Geslo">
         <button type="submit">LOGIN</button>
     </form>
+
+    <a href="/register">Še nimaš računa?</a>
 </body>
-<a href="/register">Še nimaš računa?</a>
 </html>

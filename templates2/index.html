@@ -7,50 +7,59 @@
 
 <body>
     <h1>OBJAVE</h1>
+
+    <p>Prijavljen uporabnik: {{ uporabnik }}</p>
+
+    <h2>Vse objave</h2>
+
+    <ul>
+        {% for objava in vse_objave %}
+            <li>
+                <strong>{{ objava.uporabnik }}:</strong>
+                {{ objava.vsebina }}
+
+                {% if objava.slika %}
+                    <br>
+                    <img src="{{ objava.slika }}" alt="Profilna slika" width="80">
+                {% endif %}
+            </li>
+        {% else %}
+            <li>Ni objav.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Dodaj objavo</h2>
+
+    <form action="/dodajZapisek" method="post">
+        <textarea id="moji_zapiski" name="note"></textarea>
+        <button type="submit">DODAJ ZAPISEK</button>
+    </form>
+
+    <h2>Moja profilna slika</h2>
+
+    {% if image_url %}
+        <img src="{{ image_url }}" alt="Moja profilna slika" width="150">
+    {% endif %}
+
+    <form action="/dodajSLIKO" method="post" enctype="multipart/form-data">
+        <label for="slika">Izberi sliko za nalaganje:</label>
+        <input type="file" name="slika" id="slika" accept="image/*" required>
+        <br><br>
+        <button type="submit">UPLOAD SLIKO</button>
+    </form>
+
     <h2>Moje objave</h2>
+
     <ul>
         {% for ime, vsebina in notes.items() %}
             <li>{{ vsebina }}</li>
         {% else %}
-            <li>Ni zapiskov.</li>
-        {% endfor %} 
+            <li>Nimaš še svojih objav.</li>
+        {% endfor %}
     </ul>
-    <form action="/dodajZapisek" method="post">
-        <textarea id="moji_zapiski" name="note"></textarea>
-        <button type="submit">DODAJ ZAPISKE</button>
-    </form>
-    <!-- <h2>moje slike</h2> 
-    <form>
-        <button onClick="submit">DODAJ SLIKE</button>
-    </form> -->
-    <h2>Prikaz slike:</h2>
-    <form action="/dodajSLIKO" method="post">
-        <label for="slika">Izberi sliko za nalaganje:</label>
-        <input type="file" name="slika" id="slika" accept="image/*" required><br><br>
-        <!--<textarea id="moje_slike" name="slike"></textarea> 
-        <img src=""-->
-        <button type="submit">UPLOAD SLIKO</button>
-    </form>
-    <br>
-        {% if image_url %}
-        
-        <img src="{{ image_url }}" alt="Naložena slika" width="300">
-        {% endif %}
+
     <form action="/logout" method="post">
-        <!-- <textarea id="odjavi_me" name="odjava"></textarea> -->
         <button type="submit">ODJAVI ME</button>
     </form>
-
 </body>
-<script>
-    $.ajax({
-        url: "/api/getWeather",
-        data: {
-            zipcode: 97201
-       },
-       success: function (result) {
-           $("#weather-temp").html("<strong>" + result + "</strong> degrees");
-       }
-   });
-</script> 
 </html>
